@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en" data-flavour="cream">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fondant — lip balm in three flavours</title>
+<meta name="description" content="fondant is a lip balm that melts like dessert. Three flavours: noisette, abricot and cassis. The whole page changes colour as you scroll into each one.">
+<meta name="theme-color" content="#F5EFE6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SVG sprite: gradients, the tube, and every ingredient cut-out.
+     Nothing here renders directly; sections reference it with <use>.
+     ============================================================ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".16" stop-color="#fff" stop-opacity=".48"/>
+      <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".26"/>
+    </linearGradient>
+    <radialGradient id="g-hazel" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#D39A62"/><stop offset=".55" stop-color="#9A5A2C"/><stop offset="1" stop-color="#4E2A14"/>
+    </radialGradient>
+    <radialGradient id="g-hazel-in" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#F3E2C8"/><stop offset="1" stop-color="#D9B98E"/>
+    </radialGradient>
+    <linearGradient id="g-choc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6A3B22"/><stop offset=".5" stop-color="#3C2012"/><stop offset="1" stop-color="#24120A"/>
+    </linearGradient>
+    <radialGradient id="g-amber" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#FFD58A"/><stop offset=".6" stop-color="#E09A3A"/><stop offset="1" stop-color="#9A5A14"/>
+    </radialGradient>
+    <radialGradient id="g-apricot" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#FFD9A0"/><stop offset=".55" stop-color="#F5A054"/><stop offset="1" stop-color="#C85E22"/>
+    </radialGradient>
+    <radialGradient id="g-apricot-in" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#FFE6B8"/><stop offset="1" stop-color="#F7B36A"/>
+    </radialGradient>
+    <linearGradient id="g-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9BBF6A"/><stop offset="1" stop-color="#4E7A32"/>
+    </linearGradient>
+    <radialGradient id="g-almond" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#E6C9A2"/><stop offset="1" stop-color="#8E5E36"/>
+    </radialGradient>
+    <radialGradient id="g-currant" cx="35%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#9A4D8E"/><stop offset=".5" stop-color="#4E1C4A"/><stop offset="1" stop-color="#1E0A20"/>
+    </radialGradient>
+    <radialGradient id="g-currant-in" cx="50%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#F3DCEB"/><stop offset=".7" stop-color="#C98BB6"/><stop offset="1" stop-color="#7A3A6E"/>
+    </radialGradient>
+    <radialGradient id="g-juice" cx="40%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#C64A8E"/><stop offset="1" stop-color="#5A1448"/>
+    </radialGradient>
+    <linearGradient id="g-bag" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4A2E22"/><stop offset=".5" stop-color="#3A2219"/><stop offset="1" stop-color="#241410"/>
+    </linearGradient>
+  </defs>
+
+  <!-- The tube. Colours come from --tube / --cap / --label on the <svg> that uses it. -->
+  <symbol id="tube-base" viewBox="0 0 120 420">
+    <rect x="16" y="2" width="88" height="124" rx="16" style="fill:var(--cap)"/>
+    <rect x="16" y="2" width="88" height="124" rx="16" fill="url(#shade)"/>
+    <rect x="22" y="120" width="76" height="14" style="fill:var(--cap)"/>
+    <rect x="22" y="120" width="76" height="14" fill="#000" opacity=".25"/>
+    <path d="M12 134h96v236a48 48 0 0 1-96 0z" style="fill:var(--tube)"/>
+    <path d="M12 134h96v236a48 48 0 0 1-96 0z" fill="url(#shade)"/>
+  </symbol>
+  <symbol id="tube-noisette" viewBox="0 0 120 420">
+    <use href="#tube-base"/>
+    <text transform="translate(76 392) rotate(-90)" style="font:900 34px 'Fraunces',serif;font-variation-settings:'SOFT' 100;fill:var(--label)">fondant</text>
+    <text transform="translate(44 392) rotate(-90)" style="font:500 11px 'Instrument Sans',sans-serif;letter-spacing:2.5px;fill:var(--label);opacity:.85">NOISETTE · 4.2 g</text>
+  </symbol>
+  <symbol id="tube-abricot" viewBox="0 0 120 420">
+    <use href="#tube-base"/>
+    <text transform="translate(76 392) rotate(-90)" style="font:900 34px 'Fraunces',serif;font-variation-settings:'SOFT' 100;fill:var(--label)">fondant</text>
+    <text transform="translate(44 392) rotate(-90)" style="font:500 11px 'Instrument Sans',sans-serif;letter-spacing:2.5px;fill:var(--label);opacity:.85">ABRICOT · 4.2 g</text>
+  </symbol>
+  <symbol id="tube-cassis" viewBox="0 0 120 420">
+    <use href="#tube-base"/>
+    <text transform="translate(76 392) rotate(-90)" style="font:900 34px 'Fraunces',serif;font-variation-settings:'SOFT' 100;fill:var(--label)">fondant</text>
+    <text transform="translate(44 392) rotate(-90)" style="font:500 11px 'Instrument Sans',sans-serif;letter-spacing:2.5px;fill:var(--label);opacity:.85">CASSIS · 4.2 g</text>
+  </symbol>
+
+  <!-- noisette ingredients -->
+  <symbol id="i-hazelnut" viewBox="0 0 100 100">
+    <path d="M50 6C73 6 88 30 88 56c0 24-17 40-38 40S12 80 12 56C12 30 27 6 50 6z" fill="url(#g-hazel)"/>
+    <path d="M18 42c7-22 20-32 32-32s25 10 32 32c-10-7-21-10-32-10s-22 3-32 10z" fill="#DDB98C"/>
+    <path d="M50 10c-3 10-3 20 0 30" stroke="#B8905E" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="36" cy="54" rx="9" ry="5" fill="#fff" opacity=".25" transform="rotate(-30 36 54)"/>
+  </symbol>
+  <symbol id="i-hazelnut-half" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="42" fill="url(#g-hazel)"/>
+    <circle cx="50" cy="50" r="34" fill="url(#g-hazel-in)"/>
+    <path d="M50 20v60" stroke="#C9A36E" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="38" cy="36" rx="8" ry="4" fill="#fff" opacity=".3" transform="rotate(-35 38 36)"/>
+  </symbol>
+  <symbol id="i-cocoa-bean" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="50" rx="24" ry="44" fill="url(#g-choc)" transform="rotate(-18 50 50)"/>
+    <path d="M46 14c6 24 6 48 0 72" stroke="#1A0C06" stroke-width="3" fill="none" stroke-linecap="round" transform="rotate(-18 50 50)"/>
+    <ellipse cx="40" cy="30" rx="6" ry="12" fill="#fff" opacity=".12" transform="rotate(-18 40 30)"/>
+  </symbol>
+  <symbol id="i-shard" viewBox="0 0 100 100">
+    <path d="M12 30 68 8l24 36-22 48L8 72z" fill="url(#g-choc)"/>
+    <path d="M12 30 68 8l6 10L30 44z" fill="#fff" opacity=".12"/>
+    <path d="M30 44l44-26 18 20-22 48z" fill="#000" opacity=".15"/>
+  </symbol>
+  <symbol id="i-curl" viewBox="0 0 100 100">
+    <path d="M20 70c-6-26 10-50 34-54 20-3 36 8 38 26-14-10-30-8-40 4-10 11-10 28-2 42-14 0-26-6-30-18z" fill="url(#g-choc)"/>
+    <path d="M26 44c4-18 20-28 34-26-12 6-20 14-24 28z" fill="#fff" opacity=".12"/>
+  </symbol>
+  <symbol id="i-amber-drop" viewBox="0 0 100 100">
+    <path d="M50 6C50 6 18 46 18 66a32 32 0 0 0 64 0C82 46 50 6 50 6z" fill="url(#g-amber)"/>
+    <ellipse cx="38" cy="62" rx="6" ry="12" fill="#fff" opacity=".4" transform="rotate(10 38 62)"/>
+  </symbol>
+  <symbol id="i-crumbs" viewBox="0 0 100 100">
+    <path d="M20 40l14-8 10 10-12 12z" fill="url(#g-choc)"/>
+    <path d="M58 24l12-4 8 12-14 8z" fill="url(#g-choc)"/>
+    <path d="M44 62l16-6 10 14-18 10z" fill="url(#g-choc)"/>
+    <path d="M26 78l8-4 6 6-8 6z" fill="url(#g-choc)"/>
+  </symbol>
+
+  <!-- abricot ingredients -->
+  <symbol id="i-apricot" viewBox="0 0 100 100">
+    <path d="M50 18c16-10 40 2 40 28 0 22-18 44-40 44S10 68 10 46c0-26 24-38 40-28z" fill="url(#g-apricot)"/>
+    <path d="M50 22c-4 14-4 40 0 64" stroke="#C85E22" stroke-width="2.5" fill="none" opacity=".55" stroke-linecap="round"/>
+    <path d="M50 20c0-6 2-10 6-14" stroke="#6B4A22" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="34" cy="38" rx="9" ry="5" fill="#fff" opacity=".4" transform="rotate(-30 34 38)"/>
+  </symbol>
+  <symbol id="i-apricot-half" viewBox="0 0 100 100">
+    <path d="M50 18c16-10 40 2 40 28 0 22-18 44-40 44S10 68 10 46c0-26 24-38 40-28z" fill="url(#g-apricot)"/>
+    <path d="M50 26c12-6 30 4 30 22 0 16-14 32-30 32S20 64 20 48c0-18 18-28 30-22z" fill="url(#g-apricot-in)"/>
+    <ellipse cx="50" cy="50" rx="9" ry="12" fill="#7A4A26"/>
+    <ellipse cx="47" cy="46" rx="3" ry="5" fill="#A8744A" opacity=".8"/>
+  </symbol>
+  <symbol id="i-apricot-slice" viewBox="0 0 100 100">
+    <path d="M14 60a42 42 0 0 1 72 0l-8 6a32 32 0 0 0-56 0z" fill="url(#g-apricot)"/>
+    <path d="M22 66a32 32 0 0 1 56 0l-6 4a26 26 0 0 0-44 0z" fill="url(#g-apricot-in)"/>
+  </symbol>
+  <symbol id="i-leaf" viewBox="0 0 100 100">
+    <path d="M12 82C12 40 44 14 90 14c0 46-28 74-78 68z" fill="url(#g-leaf)"/>
+    <path d="M18 78C34 56 56 38 84 20" stroke="#2F5A22" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
+  </symbol>
+  <symbol id="i-almond" viewBox="0 0 100 100">
+    <path d="M50 8c22 14 34 40 30 64-3 14-14 22-30 22S23 86 20 72C16 48 28 22 50 8z" fill="url(#g-almond)"/>
+    <path d="M50 16c-4 20-4 40 0 60" stroke="#6E4424" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+    <ellipse cx="40" cy="34" rx="6" ry="10" fill="#fff" opacity=".25" transform="rotate(20 40 34)"/>
+  </symbol>
+  <symbol id="i-blossom" viewBox="0 0 100 100">
+    <g fill="#F8D8DC">
+      <ellipse cx="50" cy="26" rx="12" ry="18"/>
+      <ellipse cx="50" cy="26" rx="12" ry="18" transform="rotate(72 50 50)"/>
+      <ellipse cx="50" cy="26" rx="12" ry="18" transform="rotate(144 50 50)"/>
+      <ellipse cx="50" cy="26" rx="12" ry="18" transform="rotate(216 50 50)"/>
+      <ellipse cx="50" cy="26" rx="12" ry="18" transform="rotate(288 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="8" fill="#F2B544"/>
+  </symbol>
+
+  <!-- cassis ingredients -->
+  <symbol id="i-currant" viewBox="0 0 100 100">
+    <circle cx="50" cy="48" r="40" fill="url(#g-currant)"/>
+    <ellipse cx="36" cy="32" rx="10" ry="6" fill="#fff" opacity=".28" transform="rotate(-30 36 32)"/>
+    <path d="M50 86l-5 8h10zM42 84l-8 5M58 84l8 5" stroke="#3A2A1A" stroke-width="2.5" fill="#3A2A1A" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-currant-cluster" viewBox="0 0 100 100">
+    <path d="M50 4c0 20-4 40-20 58M50 4c2 20 8 40 22 50M50 4c-2 18 0 36 8 54" stroke="#6B8E3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="30" cy="66" r="14" fill="url(#g-currant)"/>
+    <circle cx="72" cy="58" r="13" fill="url(#g-currant)"/>
+    <circle cx="58" cy="62" r="15" fill="url(#g-currant)"/>
+    <circle cx="44" cy="82" r="12" fill="url(#g-currant)"/>
+    <circle cx="66" cy="84" r="11" fill="url(#g-currant)"/>
+    <ellipse cx="52" cy="54" rx="5" ry="3" fill="#fff" opacity=".3"/>
+    <ellipse cx="25" cy="60" rx="4" ry="2.5" fill="#fff" opacity=".3"/>
+  </symbol>
+  <symbol id="i-currant-leaf" viewBox="0 0 100 100">
+    <path d="M50 92C30 80 10 64 12 40c12-6 22 0 26 8 2-16 6-28 12-40 6 12 10 24 12 40 4-8 14-14 26-8 2 24-18 40-38 52z" fill="url(#g-leaf)"/>
+    <path d="M50 90V18M50 60L28 42M50 60l22-18" stroke="#2F5A22" stroke-width="2" fill="none" opacity=".7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-juice" viewBox="0 0 100 100">
+    <path d="M50 6C50 6 18 46 18 66a32 32 0 0 0 64 0C82 46 50 6 50 6z" fill="url(#g-juice)"/>
+    <ellipse cx="38" cy="62" rx="6" ry="12" fill="#fff" opacity=".3" transform="rotate(10 38 62)"/>
+  </symbol>
+  <symbol id="i-currant-half" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" fill="url(#g-currant)"/>
+    <circle cx="50" cy="50" r="32" fill="url(#g-currant-in)"/>
+    <g fill="#5A1448" opacity=".7">
+      <ellipse cx="42" cy="44" rx="4" ry="6" transform="rotate(-20 42 44)"/>
+      <ellipse cx="58" cy="44" rx="4" ry="6" transform="rotate(20 58 44)"/>
+      <ellipse cx="50" cy="60" rx="4" ry="6"/>
+    </g>
+  </symbol>
+  <symbol id="i-splash" viewBox="0 0 100 100">
+    <path d="M30 20c14-12 34-10 44 4 10 12 18 30 8 44-8 10-24 10-34 20-8-14-26-12-34-26-6-12 4-32 16-42z" fill="url(#g-juice)"/>
+    <ellipse cx="40" cy="38" rx="10" ry="5" fill="#fff" opacity=".25" transform="rotate(-25 40 38)"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     Loader: a hang-tag swinging on its string, then the page lifts in.
+     ============================================================ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__swing">
+    <div class="loader__string"></div>
+    <div class="tag">
+      <span class="tag__brand">fondant</span>
+      <span class="tag__meta">lip balm · three flavours</span>
+    </div>
+  </div>
+  <p class="loader__hint">Click to skip</p>
+</div>
+
+<header class="nav">
+  <a class="nav__brand" href="#top">fondant</a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#noisette">Flavours</a>
+    <a href="#trio">The trio</a>
+  </nav>
+  <a class="bag-pill" href="#trio" id="bag-pill">Bag <span class="bag-pill__count" id="bag-count">0</span></a>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" id="top" data-flavour="cream">
+    <div class="hero__intro">
+      <p class="eyebrow" data-reveal style="--i:0">Lip balm · three flavours · 4.2 g</p>
+      <h1 class="hero__tagline" data-reveal style="--i:1">A lip balm that melts like the dessert you'd rather be eating.</h1>
+      <p class="hero__sub" data-reveal style="--i:2">Shea, cocoa butter and real fruit. No wax, no mint sting.</p>
+    </div>
+
+    <div class="hero__stage" id="hero-stage" aria-hidden="true">
+      <svg class="tube tube--noisette hero__tube" data-depth="1.2" style="--i:0"><use href="#tube-noisette"/></svg>
+      <svg class="tube tube--abricot hero__tube" data-depth="0.8" style="--i:1"><use href="#tube-abricot"/></svg>
+      <svg class="tube tube--cassis hero__tube" data-depth="1.5" style="--i:2"><use href="#tube-cassis"/></svg>
+    </div>
+
+    <p class="hero__wordmark" aria-hidden="true">fondant</p>
+    <a class="hero__scroll" href="#noisette">Scroll to taste</a>
+  </section>
+
+  <!-- Noisette -->
+  <section class="flavour flavour--noisette" id="noisette" data-flavour="noisette" data-parallax>
+    <div class="scene">
+      <div class="layers" data-layers="noisette" aria-hidden="true"></div>
+      <h2 class="flavour__name" data-speed="0.12">noisette</h2>
+      <div class="flavour__grid">
+        <article class="card">
+          <div class="card__art"><svg class="tube tube--noisette" aria-hidden="true"><use href="#tube-noisette"/></svg></div>
+          <div class="card__row"><h3 class="card__title">Noisette</h3><span class="card__price">€18</span></div>
+          <p class="card__meta">Roasted hazelnut · cocoa butter · tonka</p>
+          <button class="btn btn--block" type="button" data-add="noisette">Add to bag</button>
+        </article>
+        <div class="flavour__copy">
+          <p class="eyebrow">Tint — sheer brown</p>
+          <p class="lead">Roasted hazelnut and dark cocoa. Toasty, not sweet. Leaves a sheer brown tint that looks like you had the good coffee.</p>
+          <div class="swatches" role="group" aria-label="Jump to a flavour">
+            <a class="swatch swatch--noisette is-current" href="#noisette" aria-label="Noisette"></a>
+            <a class="swatch swatch--abricot" href="#abricot" aria-label="Abricot"></a>
+            <a class="swatch swatch--cassis" href="#cassis" aria-label="Cassis"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abricot -->
+  <section class="flavour flavour--abricot" id="abricot" data-flavour="abricot" data-parallax>
+    <div class="scene">
+      <div class="layers" data-layers="abricot" aria-hidden="true"></div>
+      <h2 class="flavour__name" data-speed="0.12">Abricot</h2>
+      <div class="flavour__grid">
+        <article class="card">
+          <div class="card__art"><svg class="tube tube--abricot" aria-hidden="true"><use href="#tube-abricot"/></svg></div>
+          <div class="card__row"><h3 class="card__title">Abricot</h3><span class="card__price">€18</span></div>
+          <p class="card__meta">Apricot kernel oil · honey · sweet almond</p>
+          <button class="btn btn--block" type="button" data-add="abricot">Add to bag</button>
+        </article>
+        <div class="flavour__copy">
+          <p class="eyebrow">Tint — soft orange</p>
+          <p class="lead">Sun-warmed apricot with a drop of honey. A soft orange wash that reads as "just back from somewhere".</p>
+          <div class="swatches" role="group" aria-label="Jump to a flavour">
+            <a class="swatch swatch--noisette" href="#noisette" aria-label="Noisette"></a>
+            <a class="swatch swatch--abricot" href="#abricot" aria-label="Abricot"></a>
+            <a class="swatch swatch--cassis" href="#cassis" aria-label="Cassis"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cassis -->
+  <section class="flavour flavour--cassis" id="cassis" data-flavour="cassis" data-parallax>
+    <div class="scene">
+      <div class="layers" data-layers="cassis" aria-hidden="true"></div>
+      <h2 class="flavour__name" data-speed="0.12">cassis</h2>
+      <div class="flavour__grid">
+        <article class="card">
+          <div class="card__art"><svg class="tube tube--cassis" aria-hidden="true"><use href="#tube-cassis"/></svg></div>
+          <div class="card__row"><h3 class="card__title">Cassis</h3><span class="card__price">€18</span></div>
+          <p class="card__meta">Blackcurrant seed oil · beetroot · vanilla</p>
+          <button class="btn btn--block" type="button" data-add="cassis">Add to bag</button>
+        </article>
+        <div class="flavour__copy">
+          <p class="eyebrow">Tint — plum stain</p>
+          <p class="lead">Blackcurrant, sharp and dark. A plum stain that outlasts the afternoon and most of the evening.</p>
+          <div class="swatches" role="group" aria-label="Jump to a flavour">
+            <a class="swatch swatch--noisette" href="#noisette" aria-label="Noisette"></a>
+            <a class="swatch swatch--abricot" href="#abricot" aria-label="Abricot"></a>
+            <a class="swatch swatch--cassis" href="#cassis" aria-label="Cassis"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The trio -->
+  <section class="trio" id="trio" data-flavour="cocoa">
+    <div class="trio__copy">
+      <p class="eyebrow">The trio · tin of three</p>
+      <h2 class="trio__title">Take all three.</h2>
+      <p class="lead">Noisette, abricot and cassis in a reusable tin. Fifteen percent off, because choosing is hard.</p>
+      <div class="trio__actions">
+        <button class="btn" type="button" id="add-trio">Add the trio · €45.90</button>
+        <a class="btn btn--ghost" href="#noisette">Pick one flavour</a>
+      </div>
+    </div>
+
+    <div class="trio__stage">
+      <svg class="bag" viewBox="0 0 360 380" aria-hidden="true">
+        <ellipse cx="180" cy="358" rx="150" ry="14" fill="#000" opacity=".3"/>
+        <path d="M112 124C112 54 248 54 248 124" fill="none" stroke="#D9A86C" stroke-width="7" stroke-linecap="round"/>
+        <use href="#tube-noisette" class="tube tube--noisette" x="118" y="10" width="42" height="147" transform="rotate(-10 139 84)"/>
+        <use href="#tube-abricot" class="tube tube--abricot" x="162" y="0" width="42" height="147" transform="rotate(3 183 74)"/>
+        <use href="#tube-cassis" class="tube tube--cassis" x="204" y="14" width="42" height="147" transform="rotate(14 225 88)"/>
+        <path d="M58 118h244l-16 226H74z" fill="url(#g-bag)"/>
+        <path d="M58 118h244l-8-16H66z" fill="#5A3A2C"/>
+        <path d="M286 344l16-226h-12l-14 226z" fill="#000" opacity=".2"/>
+        <text x="180" y="266" text-anchor="middle" style="font:900 58px 'Fraunces',serif;font-variation-settings:'SOFT' 100;fill:#F3E6D8">fondant</text>
+        <text x="180" y="294" text-anchor="middle" style="font:500 11px 'Instrument Sans',sans-serif;letter-spacing:3px;fill:#D9A86C">THE TRIO · 3 × 4.2 g</text>
+      </svg>
+
+      <div class="receipt">
+        <p class="receipt__head">fondant · order preview</p>
+        <ul class="receipt__lines" id="receipt-lines"></ul>
+        <p class="receipt__empty" id="receipt-empty">Your bag is empty. Scroll up and pick a flavour.</p>
+        <div class="receipt__totals" id="receipt-totals"></div>
+        <div class="barcode"></div>
+        <button class="receipt__checkout" type="button" id="checkout">Checkout</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="footer__brand">fondant</p>
+  <p class="footer__line">Small-batch lip balm. One page, three palettes, no WebGL.</p>
+  <nav class="footer__nav" aria-label="Footer">
+    <a href="#noisette">Flavours</a>
+    <a href="#trio">The trio</a>
+    <a href="#top">Back to top</a>
+  </nav>
+  <p class="footer__fine">© 2026 fondant. Prices are illustrative; checkout isn't connected.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="main.js" defer></script>
+</body>
+</html>
